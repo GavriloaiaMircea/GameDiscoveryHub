@@ -3,12 +3,14 @@ import useGenres from "../hooks/useGenres";
 import getCropedImage from "../services/image-url";
 import GenreListSkeleton from "./GenreListSkeleton";
 import { Genre } from "../hooks/useGenres";
+import { PiSelectionForegroundLight } from "react-icons/pi";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
+  selectedGenre : Genre | null;
 }
 
-const GenreList = ({ onSelectGenre }: Props) => {
+const GenreList = ({ selectedGenre,onSelectGenre }: Props) => {
   const { data, isLoading, err } = useGenres();
   const skeleton = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -26,6 +28,7 @@ const GenreList = ({ onSelectGenre }: Props) => {
               src={getCropedImage(genre.image_background)}
             />
             <Button
+            fontWeight={genre.id === selectedGenre?.id? "bold" : "normal"}
               variant="link"
               onClick={() => onSelectGenre(genre)}
               fontSize="md"
