@@ -3,8 +3,6 @@ import useGenres from "../hooks/useGenres";
 import getCropedImage from "../services/image-url";
 import GenreListSkeleton from "./GenreListSkeleton";
 import { Genre } from "../hooks/useGenres";
-import { PiSelectionForegroundLight } from "react-icons/pi";
-
 interface Props {
   onSelectGenre: (genre: Genre) => void;
   selectedGenre: Genre | null;

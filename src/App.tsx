@@ -1,4 +1,4 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Grid, GridItem, Show,HStack } from "@chakra-ui/react";
 import NavBar from "./Components/NavBar";
 import GameGrid from "./Components/GameGrid";
 import GenreList from "./Components/GenreList";
@@ -6,10 +6,16 @@ import { useState } from "react";
 import { Genre } from "./hooks/useGenres";
 import PlatformSelector from "./Components/PlatformSelector";
 import { Platform } from "./hooks/usePlatform";
+import SortSelector from "./Components/SortSelector";
+
+export interface GameQuerry {
+  genre: Genre | null;
+  platform: Platform | null;
+  sortOrder:string
+}
 
 function App() {
-  const [selectedGenre,setSelectedGenre]= useState<Genre | null>(null);
-  const [selectedPlatform,setSelectedPlatform] = useState<Platform | null>(null);
+  const [gameQuerry, setGameQuerry] = useState<GameQuerry>({} as GameQuerry);
 
   return (
     <Grid
@@ -27,12 +33,23 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem gridArea="aside" paddingX={5}>
-          <GenreList onSelectGenre={(genre)=>setSelectedGenre(genre)} selectedGenre={selectedGenre}/>
+          <GenreList
+            onSelectGenre={(genre) => setGameQuerry({ ...gameQuerry, genre })}
+            selectedGenre={gameQuerry.genre}
+          />
         </GridItem>
       </Show>
       <GridItem gridArea="main">
-        <PlatformSelector onSelectPlatform={(platform) => setSelectedPlatform(platform)} selectedPlatform={selectedPlatform}/>
-        <GameGrid selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}/>
+        <HStack spacing={5} paddingLeft={2} marginBottom={5}>
+          <PlatformSelector
+            onSelectPlatform={(platform) =>
+              setGameQuerry({ ...gameQuerry, platform })
+            }
+            selectedPlatform={gameQuerry.platform}
+          />
+          <SortSelector sortOrder={(gameQuerry.sortOrder)} onSelectOrder={(sortOrder)=>setGameQuerry({...gameQuerry,sortOrder})}/>
+        </HStack>
+        <GameGrid gameQuerry={gameQuerry} />
       </GridItem>
     </Grid>
   );
