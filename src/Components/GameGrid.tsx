@@ -20,14 +20,10 @@ const GameGrid = ({selectedGenre,selectedPlatform}:Props) => {
       {data.map((game) => (
         <GameCardContainer key={game.id} >
           <GameCard game={game} />
-        <GameCardContainer key={game.id} >
-          <GameCard game={game} />
         </GameCardContainer>
       ))}
       {isLoading &&
         skeleton.map((i) => (
-          <GameCardContainer key={i} >
-            <GameCardSkeleton/>
           <GameCardContainer key={i} >
             <GameCardSkeleton/>
           </GameCardContainer>
