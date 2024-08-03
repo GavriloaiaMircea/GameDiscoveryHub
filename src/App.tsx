@@ -7,16 +7,17 @@ import { Genre } from "./hooks/useGenres";
 import PlatformSelector from "./Components/PlatformSelector";
 import { Platform } from "./hooks/usePlatform";
 import SortSelector from "./Components/SortSelector";
+import GameHeading from "./Components/GameHeading";
 
-export interface GameQuerry {
+export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
   sortOrder: string;
-  searchText:string;
+  searchText: string;
 }
 
 function App() {
-  const [gameQuerry, setGameQuerry] = useState<GameQuerry>({} as GameQuerry);
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 
   return (
     <Grid
@@ -30,34 +31,39 @@ function App() {
       }}
     >
       <GridItem gridArea="nav">
-        <NavBar onSearch={(searchText)=>setGameQuerry({...gameQuerry,searchText})}/>
+        <NavBar
+          onSearch={(searchText) =>
+            setGameQuery({ ...gameQuery, searchText })
+          }
+        />
       </GridItem>
       <Show above="lg">
         <GridItem gridArea="aside" paddingX={5}>
           <GenreList
-            onSelectGenre={(genre) => setGameQuerry({ ...gameQuerry, genre })}
-            selectedGenre={gameQuerry.genre}
+            onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
+            selectedGenre={gameQuery.genre}
           />
         </GridItem>
       </Show>
       <GridItem gridArea="main">
+        <GameHeading gameQuery={gameQuery} />
         <Flex paddingLeft={2} marginBottom={5}>
           <Box marginRight={5}>
             <PlatformSelector
               onSelectPlatform={(platform) =>
-                setGameQuerry({ ...gameQuerry, platform })
+                setGameQuery({ ...gameQuery, platform })
               }
-              selectedPlatform={gameQuerry.platform}
+              selectedPlatform={gameQuery.platform}
             />
           </Box>
           <SortSelector
-            sortOrder={gameQuerry.sortOrder}
+            sortOrder={gameQuery.sortOrder}
             onSelectOrder={(sortOrder) =>
-              setGameQuerry({ ...gameQuerry, sortOrder })
+              setGameQuery({ ...gameQuery, sortOrder })
             }
           />
         </Flex>
-        <GameGrid gameQuerry={gameQuerry} />
+        <GameGrid gameQuerry={gameQuery} />
       </GridItem>
     </Grid>
   );

@@ -1,4 +1,11 @@
-import { HStack, List, ListItem, Image, Button } from "@chakra-ui/react";
+import {
+  HStack,
+  List,
+  ListItem,
+  Image,
+  Button,
+  Heading,
+} from "@chakra-ui/react";
 import useGenres from "../hooks/useGenres";
 import getCropedImage from "../services/image-url";
 import GenreListSkeleton from "./GenreListSkeleton";
@@ -16,31 +23,37 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
   if (err) return null;
 
   return (
-    <List>
-      {isLoading && skeleton.map((i) => <GenreListSkeleton key={i} />)}
-      {isLoading && skeleton.map((i) => <GenreListSkeleton key={i} />)}
-      {data.map((genre) => (
-        <ListItem key={genre.id} paddingY="5px">
-          <HStack>
-            <Image
-              boxSize="32px"
-              borderRadius={8}
-              src={getCropedImage(genre.image_background)}
-            />
-            <Button
-              fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
-              variant="link"
-              onClick={() => onSelectGenre(genre)}
-              fontSize="md"
-              whiteSpace="pre-wrap"
-              textAlign="left"
-            >
-              {genre.name}
-            </Button>
-          </HStack>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <Heading marginBottom={3} fontSize="3xl">
+        Genres
+      </Heading>
+      <List>
+        {isLoading && skeleton.map((i) => <GenreListSkeleton key={i} />)}
+        {isLoading && skeleton.map((i) => <GenreListSkeleton key={i} />)}
+        {data.map((genre) => (
+          <ListItem key={genre.id} paddingY="5px">
+            <HStack>
+              <Image
+                boxSize="32px"
+                borderRadius={8}
+                src={getCropedImage(genre.image_background)}
+              />
+              <Button
+                fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+                variant="link"
+                onClick={() => onSelectGenre(genre)}
+                fontSize="md"
+                objectFit="cover"
+                whiteSpace="normal"
+                textAlign="left"
+              >
+                {genre.name}
+              </Button>
+            </HStack>
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 

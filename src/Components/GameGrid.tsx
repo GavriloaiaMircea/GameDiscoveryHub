@@ -3,10 +3,10 @@ import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
-import { GameQuerry } from "../App";
+import { GameQuery } from "../App";
 
 interface Props {
-  gameQuerry: GameQuerry;
+  gameQuerry: GameQuery;
 }
 
 const GameGrid = ({ gameQuerry }: Props) => {
@@ -16,7 +16,7 @@ const GameGrid = ({ gameQuerry }: Props) => {
     <SimpleGrid
       padding="10px"
       columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-      spacing={3}
+      spacing={6}
     >
       {err && <Text color="tomato">{err}</Text>}
       {data.map((game) => (
