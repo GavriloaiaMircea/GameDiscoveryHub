@@ -18,7 +18,7 @@ const theme = extendTheme({ config ,
       800:"#121212",
       900:"#111"
     }
-  }
+  },
 })
 
 export default theme
