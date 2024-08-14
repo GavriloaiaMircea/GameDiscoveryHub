@@ -14,6 +14,7 @@ interface GameQueryStore {
   setPlatformId: (platformId: number) => void;
   setSortOrder: (sortOrder: string) => void;
   setSearchText: (searchText: string) => void;
+  cleanSelectedOptions: ()=> void;
 }
 
 const useGameQueryStore = create<GameQueryStore>((set) => ({
@@ -25,6 +26,7 @@ const useGameQueryStore = create<GameQueryStore>((set) => ({
   setSortOrder: (sortOrder) =>
     set((store) => ({ gameQuery: { ...store.gameQuery, sortOrder } })),
   setSearchText: (searchText) => set(() => ({ gameQuery: { searchText } })),
+  cleanSelectedOptions: () => set(() => ({ gameQuery: {} })),
 }));
 
 if (process.env.NODE_ENV === "development")
