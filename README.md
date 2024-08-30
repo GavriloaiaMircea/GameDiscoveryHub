@@ -22,7 +22,7 @@ Discovery Game Hub is a web application designed to help users explore and disco
 - **React Router:** A library for declarative routing in React applications.
 - **Zustand:** A minimalistic state management solution for React.
 
-  ## Learning Outcomes
+## Learning Outcomes
 
 This project demonstrates:
 
